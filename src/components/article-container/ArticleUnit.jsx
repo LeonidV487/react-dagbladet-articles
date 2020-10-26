@@ -49,6 +49,24 @@ const styles = theme => ({
 
 
 class ArticleUnit extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: [],
+        };
+    }
+
+    componentDidMount() {
+        this.setState({
+            title: this.props.column.title
+        });
+    }
+
+    changeArticleTitle = () => {
+        this.setState({
+            title: prompt("Write new article title")
+        });
+    };
 
     deleteArticle = () => {
         prompt("Write 'yes' if you really want to delete the article");
@@ -64,7 +82,7 @@ class ArticleUnit extends Component {
                         <Typography
                             className={classes.title}
                         >
-                            {this.props.column.title}
+                            {this.state.title}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -77,6 +95,7 @@ class ArticleUnit extends Component {
                 </Grid>
                 <Grid item>
                     <Button
+                        onClick={this.changeArticleTitle}
                         className={classes.buttons}
                         variant={"outlined"}
                     >
