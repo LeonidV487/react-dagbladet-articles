@@ -21,9 +21,29 @@ const styles = theme => ({
         width: 200,
     },
     buttons: {
+        backgroundColor: '#282c50',
+        color: '#D6DFE7',
         marginTop: 15,
         marginBottom: 10,
-        margin: theme.spacing(1)
+        margin: theme.spacing(1),
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+        '&:hover': {
+            backgroundColor: '#FCFCFC',
+            color: '#282c50',
+            borderColor: '#282c50',
+            boxShadow: 'none',
+        },
     }
 });
 
