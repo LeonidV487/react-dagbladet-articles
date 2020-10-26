@@ -26,7 +26,6 @@ class App extends Component {
 
     getRows = () => {
         return this.state.mainData.map(articleRow => {
-            console.log(articleRow);
             return (
                 <Grid container justify={"center"}>
                     {this.getArticles(articleRow)}
