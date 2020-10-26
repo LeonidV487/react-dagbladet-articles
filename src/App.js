@@ -1,56 +1,65 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import {Grid} from "@material-ui/core";
+import ArticleUnit from "./components/article-container";
 
-function App() {
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            mainData: [],
+        };
+    }
 
-    let state = {
-        mainData: [],
-        mainData2: []
-    };
-
-    const setData = () => {
+    componentDidMount() {
         fetch('https://storage.googleapis.com/aller-structure-task/test_data.json')
             .then(response => response.json())
             .then((jsonData) => {
-                state.mainData = jsonData[0];
+                this.setState({
+                    mainData: jsonData[0]
+                })
             })
             .catch((error) => {
                 console.error(error)
             });
     };
 
-    const getArticles = () => {
-        console.log(state.mainData);
-
-        state.mainData2 = state.mainData.map((article) => {
-            console.log(article);
-            return article;
+    getRows = () => {
+        return this.state.mainData.map(articleRow => {
+            console.log(articleRow);
+            return (
+                <Grid container justify={"center"}>
+                    {this.getArticles(articleRow)}
+                </Grid>
+            )
         });
-        console.log(state.mainData2);
     };
 
-    return (
-        <div className="App">
-            {setData()}
-            <header className="App-header">
+    getArticles = (articleRow) => {
+        return articleRow.columns.map(column => {
+            return (
+                <ArticleUnit column={column}/>
+            )
+        });
+    };
 
-            </header>
-            <main>
-                <div>
-                    <button onClick={getArticles}>Get Article</button>
-                    <ul>
-                        {
-                            state.mainData2.map((article, index) => {
-                                console.log(article);
-                                return <li key={index}>{article.type}</li>
-                            })
-                        }
-                    </ul>
-                </div>
-            </main>
-        </div>
-    );
+    render() {
+        return (
+            <div className="App">
+                <Grid container justify={"center"}>
+                    <Grid item xs={7}>
+                        <Grid
+                            container
+                            justify={"center"}
+                        >
+                            {this.getRows()}
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    }
+
 }
 
 export default App;
